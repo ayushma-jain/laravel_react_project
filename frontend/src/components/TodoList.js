@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, TextField, Button,Typography, Grid, TableContainer, TableHead, Table, TableRow, TableCell, TableBody,Paper, Stack,CircularProgress} from '@mui/material';
+import { Container, TextField, Button,Typography, Grid, TableContainer, TableHead, Table, TableRow, TableCell, TableBody,Paper, Stack} from '@mui/material';
 import axios from "axios";
 import { AddButton, StyledHeading } from "./StyledComponents";
 import { useNotification } from "../contexts/NotificationContext";
@@ -8,7 +8,6 @@ import { useNotification } from "../contexts/NotificationContext";
 const TodoList = () => {
     const [todos,setTodos] = useState([]);
     const [task, setTask] = useState();
-    const [loading, setLoading] = useState(false);
     const { handleSuccess, handleError } = useNotification();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const TodoList = () => {
             const result = await response.json();
             setTodos(result.data);
         } catch (error) {
-            handleError('There was an error fetching the todos!', error);
+            handleError('There was an error fetching the todos!');
         }
     };
     fetchTodos();
@@ -33,7 +32,7 @@ const TodoList = () => {
             setTask('');
             handleSuccess('Task Added Successfully');
         } catch (error) {
-            handleError('There was an error saving the todo!', error);
+            handleError('There was an error saving the todo!');
         }
     };
   
@@ -88,9 +87,6 @@ const TodoList = () => {
                         TODO LIST
                     </Typography>
                 </StyledHeading>
-                {loading ? (
-                    <CircularProgress />
-                ) : (
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -127,7 +123,6 @@ const TodoList = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                )}
             </Grid>
         </Grid>
     </Container>
