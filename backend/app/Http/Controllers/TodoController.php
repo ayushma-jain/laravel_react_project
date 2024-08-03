@@ -12,7 +12,10 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return Todo::all();
+      
+        $todos = Todo::all();
+        return response()->json(['data' => $todos]);
+       
     }
 
     /**
@@ -76,6 +79,6 @@ class TodoController extends Controller
     {
         $todo->delete();
 
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Todo deleted successfully']);
     }
 }

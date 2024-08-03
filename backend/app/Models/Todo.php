@@ -14,4 +14,16 @@ class Todo extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+     // Accessor to format the created_at date
+     public function getCreatedAtAttribute($value)
+     {
+         return \Carbon\Carbon::parse($value)->format('Y-M-d');
+     }
+ 
+     // Accessor to format the updated_at date
+     public function getUpdatedAtAttribute($value)
+     {
+         return \Carbon\Carbon::parse($value)->format('Y-M-d');
+     }
 }

@@ -7,5 +7,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-// Route::resource('todos',[App\Http\Controllers\TodoController::class,'index']);
+// Route::middleware('cors')->group(function () {
+//     Route::apiResource('todos', TodoController::class);
+// });
 Route::resource('todos', App\Http\Controllers\TodoController::class);
