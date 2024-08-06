@@ -1,38 +1,32 @@
-import React from 'react'
-import { Snackbar,Alert, styled } from '@mui/material';
+import React from 'react';
+import { Snackbar, Alert, styled } from '@mui/material';
 
-
-const useStyles = styled((theme) => ({
-    snackbar: {
-      top: theme.spacing(2),
-      bottom: 'auto',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      position: 'fixed',
-      width: 'fit-content',
-      minWidth: 300,
-    },
-  }));
+const StyledSnackbar = styled(Snackbar)(({ theme }) => ({
+  top: theme.spacing(2),
+  bottom: 'auto',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  position: 'fixed',
+  width: 'fit-content',
+  minWidth: 300,
+}));
 
 const TopAlertSnackbar = ({ open, message, severity, onClose }) => {
-    const classes = useStyles();
-
-    return (
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
+  return (
+    <StyledSnackbar
+      open={open}
+      autoHideDuration={6000}
+      onClose={onClose}
+    >
+      <Alert
         onClose={onClose}
-        className={classes.snackbar}
+        severity={severity} 
+        sx={{ width: '100%' }}
       >
-        <Alert
-          onClose={onClose}
-          severity={severity} 
-          sx={{ width: '100%' }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
-    )
+        {message}
+      </Alert>
+    </StyledSnackbar>
+  );
 }
 
-export default TopAlertSnackbar
+export default TopAlertSnackbar;

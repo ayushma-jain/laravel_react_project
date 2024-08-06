@@ -3,6 +3,7 @@ import { Container, TextField, Button,Typography, Grid, TableContainer, TableHea
 import axios from "axios";
 import { AddButton, StyledHeading } from "./StyledComponents";
 import { useNotification } from "../contexts/NotificationContext";
+import TodoTable from "./TodoTable";
 
 
 const TodoList = () => {
@@ -36,29 +37,29 @@ const TodoList = () => {
         }
     };
   
-    //Handle task complete status.
-    const handleToggleComplete = async(id) => {
-        try {
-            const response = await axios.patch(`http://127.0.0.1:8000/api/todos/${id}`, { complete_status: true });
-            setTodos(todos.map(todo => (todo.id === id ? response.data : todo)));
-            handleSuccess('Task marks as successfully');
-        } catch (error) {
-            handleError('There was an error updating the todo status!', error);
-        }
+    // //Handle task complete status.
+    // const handleToggleComplete = async(id) => {
+    //     try {
+    //         const response = await axios.patch(`http://127.0.0.1:8000/api/todos/${id}`, { complete_status: true });
+    //         setTodos(todos.map(todo => (todo.id === id ? response.data : todo)));
+    //         handleSuccess('Task marks as successfully');
+    //     } catch (error) {
+    //         handleError('There was an error updating the todo status!', error);
+    //     }
        
-    };
+    // };
   
-    //Handle Delete Todo.
-    const handleDeleteTodo = async(id) => {
-        try {
-            console.log(id);
-            const response = await axios.delete('http://127.0.0.1:8000/api/todos/'+id);
-            setTodos(todos.filter(todo => todo.id !== id));
-            handleSuccess('Task deleted successfully');
-        } catch (error) {
-            handleError(error.message);
-        }
-    };
+    // //Handle Delete Todo.
+    // const handleDeleteTodo = async(id) => {
+    //     try {
+    //         console.log(id);
+    //         const response = await axios.delete('http://127.0.0.1:8000/api/todos/'+id);
+    //         setTodos(todos.filter(todo => todo.id !== id));
+    //         handleSuccess('Task deleted successfully');
+    //     } catch (error) {
+    //         handleError(error.message);
+    //     }
+    // };
 
   return (
     <Container>
@@ -82,12 +83,12 @@ const TodoList = () => {
                 </AddButton>
             </Grid>
             <Grid item xs={12}>
-                <StyledHeading>
+                {/* <StyledHeading>
                     <Typography variant="h4" gutterBottom >
                         TODO LIST
                     </Typography>
-                </StyledHeading>
-                <TableContainer component={Paper}>
+                </StyledHeading> */}
+                {/* <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -122,7 +123,8 @@ const TodoList = () => {
                             ))}
                         </TableBody>
                     </Table>
-                </TableContainer>
+                </TableContainer> */}
+                {/* <TodoTable todos={todos} handleComplete={handleToggleComplete} handleDelete={handleDeleteTodo}/> */}
             </Grid>
         </Grid>
     </Container>

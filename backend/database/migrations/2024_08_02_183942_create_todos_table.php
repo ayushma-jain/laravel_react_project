@@ -12,11 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('todos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('task');
-            $table->boolean('complete_status')->default(false);
+            $table->text('task_details')->nullable();
+            $table->float('amount')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->boolean('complete_status')->default(0);
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes(); // Adds deleted_at column for soft deletes
         });
     }
 
