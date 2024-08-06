@@ -1,10 +1,12 @@
-import { AppBar, Button, Box, DialogActions, DialogContent, DialogTitle, Grid, styled, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, Box, DialogActions, DialogContent, DialogTitle, Grid, styled, TextField, Toolbar, Typography, Modal } from '@mui/material';
 import {useModal} from '../contexts/ModalContext';
 import { useState } from 'react';
 import { StyledDialog } from './StyledComponents';
 import { DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 // import Datepicker from './Datepicker';
 
 
@@ -20,6 +22,28 @@ const Navbar = () => {
     
     const [isOpen, setIsOpen] = useState(false);
 const [modalContent, setModalContent] = useState(null);
+
+const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
+
+    const handleOpen = (isLoginForm) => {
+        setIsLogin(isLoginForm);
+        setIsModalOpen(true);
+    };
+
+    const handleClose = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleLogin = (data) => {
+        console.log('Login data:', data);
+        handleClose();
+    };
+
+    const handleRegister = (data) => {
+        console.log('Register data:', data);
+        handleClose();
+    };
 
 const handleOpenModal = (content) => {
     setModalContent(content);
@@ -40,11 +64,19 @@ const handleCloseModal = () => {
                     </Typography>
                    
                     <Button color="inherit" onClick={handleOpenModal}>Add Task</Button>
-                    <Button color="inherit">About</Button>
-                    <Button color="inherit">Contact</Button>
-                    <Button color="inherit">Login</Button>
+                    
+                    <Button color="inherit" onClick={() => handleOpen(true)}>Login</Button>
+                    <Button color="inherit" onClick={() => handleOpen(false)}>Register</Button>
                 </Toolbar>
             </AppBar>
+             <Modal
+                open={isModalOpen}
+                onClose={handleCloseModal}
+                title={isLogin ? 'Login' : 'Register'}
+                onSubmit={isLogin ? handleLogin : handleRegister}
+            >
+                {isLogin ? <LoginForm onSubmit={handleLogin} /> : <RegisterForm onSubmit={handleRegister} />}
+            </Modal>
         
             <StyledDialog open={isOpen}>
                 <DialogTitle>
